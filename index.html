@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es_AR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="manifest" href="<%= htmlWebpackPlugin.files.publicPath %>static/manifest.json">
+    <meta name="theme-color" content="#607d8b" />
+
+    <title>contador_de_uno</title>
+  </head>
+  <body style="margin: 0; background: #607D8B11">
+    <%= htmlWebpackPlugin.options.serviceWorkerLoader %>
+
+  <div id="app"></div>
+    <!-- built files will be auto injected -->
+
+    <script >
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      }
+    </script>
+  </body>
+</html>
