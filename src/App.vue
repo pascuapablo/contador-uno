@@ -87,7 +87,7 @@
       }
     },
     components: {
-      card,ferComponent
+      card
     }
   }
 </script>
