@@ -26,7 +26,6 @@
 
 <script>
   import card from './components/card'
-  import ferComponent  from './components/FerComponent'
   export default {
     name: 'App',
     data() {
