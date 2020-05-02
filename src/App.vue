@@ -21,7 +21,6 @@
             :sub-color=user.subcolor
             :score=user.score></card>
     </div>
-    <ferComponent ferprop="user.color"></ferComponent>
   </div>
 </template>
 
