@@ -25,71 +25,70 @@
 </template>
 
 <script>
-  import card from './components/card'
-  export default {
-    name: 'App',
-    data() {
-      return {
-        dialogVisible: false,
-        colors: ["#00A1DE", "#FF6319", "#6CBE45", "#ae6abb", "#8e6758", "#f7bb07", "#808183", "#eb444b", "#00933C", "#ff59d3"],
-        subcolors: ["#00A1DE11", "#FF631911", "#6CBE4511", "#ae6abb11", "#8e675811", "#f7bb0711", "#80818311", "#eb444b11", "#00933C11", "#ff59d311"]
-      }
-    },
-    methods: {
-      openAddNewUserModal: function () {
-        this.$prompt('Nombre', 'Nuevo jugador', {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancelar',
-          inputType: "String",
-          customClass: "messageBox",
-          inputValidator: (name) => {
-            return this.$store.getters.getUserByName(name) === undefined ? true : "Ese nombre ya existe"
-          },
-        }).then(({value}) => {
-          let newUser = {
-            name: value,
-            score: 0,
-            color: this.colors[this.$store.state.players.length % 10],
-            subcolor: this.subcolors[this.$store.state.players.length % 10]
-          };
-          this.$store.commit("addPlayer", newUser);
+import card from './components/card'
 
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: 'Input canceled'
-          });
-        });
-      },
-      openResetGameWarningModal: function () {
-        this.$confirm('Resetear todos los valores a 0 ?', {
-          confirmButtonText: 'Continuar',
-          cancelButtonText: 'Cancelar',
-          type: 'warning',
-          customClass: "messageBox",
-        }).then(() => {
-          this.$store.state.players.forEach(player => {
-            this.$store.commit('addScore', {name: player.name, score: -player.score})
-          })
-        }).catch((reason) => {
-
-          this.$message({
-            type: 'error',
-            customClass: "messageBox",
-            message: 'Error, intente eliminar de a uno a los jugadores'
-          });
-        });
-      },
-    },
-    computed: {
-      sortedUsers: function () {
-        return this.$store.state.players.sort((a, b) => a.score - b.score)
-      }
-    },
-    components: {
-      card
+export default {
+  name: 'App',
+  data () {
+    return {
+      dialogVisible: false,
+      colors: ['#00A1DE', '#FF6319', '#6CBE45', '#ae6abb', '#8e6758', '#f7bb07', '#808183', '#eb444b', '#00933C', '#ff59d3'],
+      subcolors: ['#00A1DE11', '#FF631911', '#6CBE4511', '#ae6abb11', '#8e675811', '#f7bb0711', '#80818311', '#eb444b11', '#00933C11', '#ff59d311']
     }
+  },
+  methods: {
+    openAddNewUserModal: function () {
+      this.$prompt('Nombre', 'Nuevo jugador', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancelar',
+        inputType: 'String',
+        customClass: 'messageBox',
+        inputValidator: (name) => {
+          return this.$store.getters.getUserByName(name) === undefined ? true : 'Ese nombre ya existe'
+        }
+      }).then(({value}) => {
+        let newUser = {
+          name: value,
+          score: 0,
+          color: this.colors[this.$store.state.players.length % 10],
+          subcolor: this.subcolors[this.$store.state.players.length % 10]
+        }
+        this.$store.commit('addPlayer', newUser)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: 'Input canceled'
+        })
+      })
+    },
+    openResetGameWarningModal: function () {
+      this.$confirm('Resetear todos los valores a 0 ?', {
+        confirmButtonText: 'Continuar',
+        cancelButtonText: 'Cancelar',
+        type: 'warning',
+        customClass: 'messageBox'
+      }).then(() => {
+        this.$store.state.players.forEach(player => {
+          this.$store.commit('addScore', {name: player.name, score: -player.score})
+        })
+      }).catch((reason) => {
+        this.$message({
+          type: 'error',
+          customClass: 'messageBox',
+          message: 'Error, intente eliminar de a uno a los jugadores'
+        })
+      })
+    }
+  },
+  computed: {
+    sortedUsers: function () {
+      return this.$store.state.players.sort((a, b) => a.score - b.score)
+    }
+  },
+  components: {
+    card
   }
+}
 </script>
 
 <style lang="scss">
